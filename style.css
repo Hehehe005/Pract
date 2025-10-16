@@ -1,0 +1,353 @@
+/* === ПЕРЕМЕННЫЕ И БАЗОВЫЕ НАСТРОЙКИ === */
+:root {
+    /* Цветовая схема в стиле Матрицы */
+    --matrix-green: #00ff41;
+    --matrix-dark-green: #008f11;
+    --matrix-bg: #0a0a0a;
+    --matrix-bg-light: #1a1a1a;
+    --text-primary: #00ff41;
+    --text-secondary: #ffffff;
+    --text-muted: #888888;
+    --accent: #ff0040;
+    --border-color: #00ff4133;
+}
+
+/* Сброс стандартных стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Основные стили body */
+body {
+    font-family: 'Courier New', monospace;
+    background-color: var(--matrix-bg);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    min-height: 100vh;
+    
+    /* Эффект сканлиний как у старого монитора */
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 255, 65, 0.03),
+            rgba(0, 255, 65, 0.03) 1px,
+            transparent 1px,
+            transparent 2px
+        );
+}
+
+/* Контейнер */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Эффект свечения для текста */
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 
+            0 0 5px var(--matrix-green),
+            0 0 10px var(--matrix-green),
+            0 0 15px var(--matrix-dark-green);
+    }
+    50% {
+        text-shadow: 
+            0 0 10px var(--matrix-green),
+            0 0 20px var(--matrix-green),
+            0 0 30px var(--matrix-dark-green);
+    }
+}
+/* === ШАПКА САЙТА === */
+.movie-header {
+    text-align: center;
+    padding: 40px 0;
+    background: linear-gradient(135deg, var(--matrix-bg) 0%, var(--matrix-bg-light) 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Эффект матричного дождя для фона шапки */
+.movie-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(0, 255, 65, 0.1) 50%,
+        transparent 100%
+    );
+    animation: matrix-rain 3s linear infinite;
+}
+
+@keyframes matrix-rain {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+/* Заголовок */
+.movie-header h1 {
+    font-size: 3em;
+    color: var(--matrix-green);
+    margin-bottom: 10px;
+    letter-spacing: 3px;
+    animation: glow 2s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+}
+
+/* Навигация */
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.main-nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid var(--matrix-green);
+    border-radius: 5px;
+    background: rgba(0, 255, 65, 0.05);
+    transition: all 0.3s ease;
+}
+
+.main-nav a:hover {
+    background: var(--matrix-green);
+    color: var(--matrix-bg);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--matrix-green);
+}
+/* === СЕКЦИИ КОНТЕНТА === */
+.content-section {
+    background: var(--matrix-bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+/* Эффект терминала */
+.content-section::before {
+    content: '>';
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    color: var(--matrix-green);
+    font-size: 1.2em;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.content-section h2 {
+    color: var(--matrix-green);
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    border-left: 3px solid var(--matrix-green);
+}
+
+/* Сетка информации */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.info-item {
+    padding: 15px;
+    background: var(--matrix-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+.info-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--matrix-green);
+}
+/* === НУМЕРОВАННЫЙ СПИСОК === */
+.reasons-list {
+    counter-reset: reason-counter;
+    list-style: none;
+    padding: 0;
+}
+
+.reasons-list li {
+    counter-increment: reason-counter;
+    padding: 15px 15px 15px 50px;
+    margin-bottom: 15px;
+    background: var(--matrix-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.reasons-list li::before {
+    content: counter(reason-counter, decimal-leading-zero);
+    position: absolute;
+    left: 15px;
+    color: var(--matrix-green);
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.reasons-list li:hover {
+    background: rgba(0, 255, 65, 0.05);
+    border-color: var(--matrix-green);
+    transform: translateX(5px);
+}
+/* === ПОСТЕР === */
+.poster-container {
+    text-align: center;
+    padding: 20px;
+    background: var(--matrix-bg);
+    border-radius: 10px;
+}
+
+.movie-poster {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid var(--matrix-green);
+    border-radius: 10px;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 65, 0.5),
+        0 0 40px rgba(0, 255, 65, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.movie-poster:hover {
+    transform: scale(1.05);
+    box-shadow: 
+        0 0 30px rgba(0, 255, 65, 0.7),
+        0 0 60px rgba(0, 255, 65, 0.4);
+}
+/* === ССЫЛКИ === */
+.links-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.external-link {
+    position: relative;
+    display: inline-block;
+    padding: 15px 30px;
+    background: var(--matrix-bg);
+    color: var(--text-secondary);
+    text-decoration: none;
+    border: 2px solid var(--matrix-green);
+    border-radius: 5px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.external-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--matrix-green);
+    transition: left 0.3s ease;
+}
+
+.external-link:hover::before {
+    left: 0;
+}
+
+.external-link:hover {
+    color: var(--matrix-bg);
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(0, 255, 65, 0.5);
+    z-index: 1;
+}
+/* === ФУТЕР === */
+.site-footer {
+    margin-top: 50px;
+    padding: 30px;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(0, 255, 65, 0.05) 100%
+    );
+}
+
+.site-footer p {
+    color: var(--text-muted);
+    font-size: 0.9em;
+}
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 768px) {
+    .movie-header h1 {
+        font-size: 2em;
+    }
+    
+    .main-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .main-nav a {
+        width: 200px;
+        text-align: center;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* === СПИСОК АКТЕРОВ === */
+.actors-list {
+    list-style: none;
+    padding: 0;
+}
+
+.actors-list li {
+    padding: 15px;
+    margin-bottom: 10px;
+    background: var(--matrix-bg);
+    border-left: 3px solid var(--matrix-green);
+    transition: all 0.3s ease;
+}
+
+.actors-list li::before {
+    content: '//';
+    color: var(--matrix-green);
+    margin-right: 10px;
+}
+
+.actors-list li:hover {
+    background: rgba(0, 255, 65, 0.1);
+    transform: translateX(10px);
+}
+
+.actor-name {
+    color: var(--matrix-green);
+    font-weight: bold;
+}
